@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.urls import reverse
+from django.shortcuts import render
 
 
 weekdays = {
@@ -13,6 +14,9 @@ weekdays = {
         'sunday': 'ничего не делат',
     }
 
+
+def greeting(request):
+    return render(request, 'week_days/greeting.html')
 
 def get_plan_on_weekday(request, weekday):
     if weekday.lower() in weekdays:

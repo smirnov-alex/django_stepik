@@ -1,21 +1,14 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from .zodiac_data import dates, zodiac_dict, zodiac_type
+from django.template.loader import render_to_string
 
 
 def index(request):
     zodiac_list = list(zodiac_dict)
-    li_elements = ''
-    for sign in zodiac_list:
-        redirect_path = reverse('horoscope_name', args=(sign,))
-        li_elements += f'<li><a href="{redirect_path}">{sign.title()}</a></li>'
-    response = f'''
-    <ul>
-        {li_elements}
-    </ul>
-    '''
-    return HttpResponse(response)
+    data = {"zodiac_list": zodiac_list}
+    return render(request, 'horoscope/index.html', context=data)
 
 
 def types_page(request):
@@ -46,11 +39,14 @@ def type_info(request, type_sign):
     return HttpResponse(response)
 
 
-def get_info_about_zodiac_sign(request, sign_zodiac: str):
-    description = zodiac_dict.get(sign_zodiac, None)
-    if description:
-        return HttpResponse(f'<h2>{description}</h2>')
-    return HttpResponseNotFound(f'Неизвестный знак зодиака: {sign_zodiac}')
+def get_info_about_zodiac_sign(request, sign_zodiac):
+    description = zodiac_dict.get(sign_zodiac)
+    data = {
+        'description_zodiac': description,
+        'sign': sign_zodiac,
+        'zodiacs': zodiac_dict,
+    }
+    return render(request, 'horoscope/info_zodiac.html', context=data)
 
 
 def get_info_about_zodiac_sign_by_number(request, sign_zodiac: int):

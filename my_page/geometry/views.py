@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
@@ -9,7 +9,8 @@ def get_rectangle_area(request, width: int, height: int):
 
 def rectangle(request, width: int, height: int):
     area = width * height
-    return HttpResponse(f'Площадь прямоугольника размером {width}X{height} равна {area}')
+    return render(request, 'geometry/rectangle.html')
+    # return HttpResponse(f'Площадь прямоугольника размером {width}X{height} равна {area}')
 
 
 def get_square_area(request, width: int):
@@ -18,7 +19,8 @@ def get_square_area(request, width: int):
 
 def square(request, width: int):
     area = width * width
-    return HttpResponse(f'Площадь квадрата размером {width}X{width} равна {area}')
+    return render(request, 'geometry/square.html')
+    # return HttpResponse(f'Площадь квадрата размером {width}X{width} равна {area}')
 
 
 def get_circle_area(request, radius: int):
@@ -27,4 +29,5 @@ def get_circle_area(request, radius: int):
 
 def circle(request, radius: int):
     area = radius ** 2 * 3.14
-    return HttpResponse(f'Площадь круга радиусом {radius} равна {area}')
+    return render(request, 'geometry/circle.html')
+    # return HttpResponse(f'Площадь круга радиусом {radius} равна {area}')

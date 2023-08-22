@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<nav>
+    <ul>
+        <li><a href="{% url 'all_movies' %}">Фильмы</a></li>
+        <li><a href="{% url 'all_directors' %}">Режиссеры</a></li>
+        <li><a href="{% url 'all_actors' %}">Актеры</a></li>
+    </ul>
+</nav>
+<body>
+{% block content %} {% endblock %}
+</body>
+</html>
